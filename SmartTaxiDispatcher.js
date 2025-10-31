@@ -79,7 +79,12 @@ function closeness(){
         // Sa position change vers la destination (ici = position de la demande)
         taxi.position = curent_request.position
         taxi_new_position=taxi.position }
-        }); console.log(taxi_new_position) }
+       
+        
+        }); 
+         console.log("the new position of the taxi est : "+taxi_new_position)
+    
+    }
         // D. Gérer une file d’attente
 function menu(){
     console.log('=================================================================')
@@ -109,7 +114,8 @@ do{
         // ================ Opérations sur les livres =============
                     case ('1'):add_Taxi();break;
                     case ('2'):add_Request();break;
-                    case ('3'):closeness();break;
+                    case ('3'): curent_request = smalrequest();
+                                 closeness();break;
                     case ('4'):earliest_taxi();break;
                     case ('5'):console.log(Taxis);break;
                     case ('6'):console.log(Requests);break;
