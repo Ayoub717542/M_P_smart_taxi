@@ -1,6 +1,8 @@
 const prompt=require("prompt-sync")();
 let Taxis = [];
 let Requests = [];
+let waitingQueue = [];
+
 
 function add_Taxi(){
         let position = prompt("Donner le position de un taxi : ");
@@ -72,20 +74,30 @@ function closeness(){
     Taxis.forEach(taxi => {
         if (taxi.timeRemaining > 0){
             taxi.available = false;
-            taxi.timeRemaining --;
+            setInterval(taxi.timeRemaining --);
         // Quand timeRemaining arrive à 0  Le taxi devient disponible à nouveau.
         }else if(taxi.timeRemaining == 0){
         taxi.available = true;
         // Sa position change vers la destination (ici = position de la demande)
         taxi.position = curent_request.position
         taxi_new_position=taxi.position }
-       
-        
         }); 
          console.log("the new position of the taxi est : "+taxi_new_position)
     
     }
         // D. Gérer une file d’attente
+    function waitingReaquests(){
+        Taxis.forEach(taxi => {
+            if(!taxi.available == true){
+                waitingQueue.push(taxi)
+            }
+            console.log(waitingQueue)
+            
+        });
+    }
+
+
+
 function menu(){
     console.log('=================================================================')
     console.log('================== Smart Taxi Dispatcher  ===================')
@@ -94,8 +106,9 @@ function menu(){
     console.log("2. Ajouter un request : ")
     console.log("3. Aficher the closest taxi. ")
     console.log("4. Aficher the earliest taxi. ")
-    console.log("5. Aficher taxi tableu . ")
-    console.log("6. Aficher Request tableu . ")
+    console.log("5. affich file . ")
+    console.log("6. Aficher taxi tableu . ")
+    console.log("7. Aficher Request tableu . ")
     console.log('0. Quitter ')
 
     let choises = prompt('Choisissez dans le menu =>  ');
@@ -117,8 +130,10 @@ do{
                     case ('3'): curent_request = smalrequest();
                                  closeness();break;
                     case ('4'):earliest_taxi();break;
-                    case ('5'):console.log(Taxis);break;
-                    case ('6'):console.log(Requests);break;
+                     case ('5'):waitingReaquests();break;
+                    
+                    case ('6'):console.log(Taxis);break;
+                    case ('7'):console.log(Requests);break;
                 case ('0'):
 console.log("fin !!")
 break;      
